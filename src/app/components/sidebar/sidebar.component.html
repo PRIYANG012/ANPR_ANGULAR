@@ -1,0 +1,21 @@
+
+<div class="sidebar-wrapper scroll-width-none">
+
+   
+  <ul class="nav " >
+    <li 
+      routerLinkActive="active"
+      *ngFor="let menuItem of menuItems"
+      class="{{ menuItem.class }} nav-item lh "
+    >
+      <a [routerLink]="[menuItem.path]">
+        <i class="tim-icons  {{ menuItem.icon }}" style="width: 100%;height: 100%;font-size:40px;"></i>
+        <br><br>
+        <p class="text-center">{{ menuItem.title }}</p>
+      </a>
+      <hr class="whr">
+    </li>
+   
+  </ul>
+</div>
+
