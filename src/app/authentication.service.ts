@@ -9,6 +9,7 @@ export class AuthenticationService {
 
   logout() :void {    
     localStorage.setItem('authIn','false');    
+    localStorage.setItem('currentToken',null);
     
     }   
 }

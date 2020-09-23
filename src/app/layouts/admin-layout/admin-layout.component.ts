@@ -2,6 +2,7 @@ import { Component, OnInit,NgZone } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router'
 import { timer } from 'rxjs';
 import * as $ from 'jquery' 
+import { interval } from 'rxjs';
 
 declare var webkitSpeechRecognition: any;
 @Component({
@@ -45,6 +46,10 @@ export class AdminLayoutComponent implements OnInit {
 
 
   ngOnInit() {
+//     const secondsCounter = interval(1000);
+// // Subscribe to begin publishing values
+// secondsCounter.subscribe(n =>
+//   console.log(`It's been ${n} seconds since subscribing!`));
     this.record()
   }
 
@@ -66,7 +71,7 @@ export class AdminLayoutComponent implements OnInit {
               routevar=event.results[event.results.length -1][0].transcript
              
              
-                if(routevar==' hey Jarvis'||routevar=='hey Jarvis' ||routevar=='hi Jarvis' ||routevar==' hi Jarvis')
+                if(routevar==' hey Jarvis'||routevar=='hey Jarvis' ||routevar=='hi Jarvis' ||routevar==' hi Jarvis' || routevar==' hello Jarvis'||routevar=='hello Jarvis' ||routevar=='hello Jarvis' ||routevar==' hello Jarvis')
                 {
                   startjarvis='Jarvis on'
                   alert(startjarvis)

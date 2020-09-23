@@ -15,27 +15,10 @@
            
             <div class=" table-full-width table-responsive scroll-width-none" >
                <ul class=" list-unstyled text-center">
-              <li> <blockquote>
-                <h1 class="plate-list blockquote blockquote-danger">GJ-15-GP2020</h1>
+              <li *ngFor="let item of Result; let i = index" (click)="displaydeatils(Numberplate[i])"> <blockquote>
+                <h1 class="plate-list blockquote blockquote-danger" >{{Numberplate[i]}}</h1>
               </blockquote></li>
-              <li> <blockquote>
-                <h1 class="plate-list blockquote blockquote-danger">GJ-15-GP2020</h1>
-              </blockquote></li>
-              <li> <blockquote>
-                <h1 class="plate-list blockquote blockquote-danger">GJ-15-GP2020</h1>
-              </blockquote></li>
-              <li> <blockquote>
-                <h1 class="plate-list blockquote blockquote-danger">GJ-15-GP2020</h1>
-              </blockquote></li>
-              <li> <blockquote>
-                <h1 class="plate-list blockquote blockquote-danger">GJ-15-GP2020</h1>
-              </blockquote></li>
-              <li> <blockquote>
-                <h1 class="plate-list blockquote blockquote-danger">GJ-15-GP2020</h1>
-              </blockquote></li>
-              <li> <blockquote>
-                <h1 class="plate-list blockquote blockquote-danger">GJ-15-GP2020</h1>
-              </blockquote></li>
+              
               
             </ul>
               </div>
@@ -49,7 +32,7 @@
           <div class=" card-header">
             
             <h6 class=" title d-inline">vehicle Details</h6>
-            <p class=" card-category d-inline">Time: 12:00 AM</p>
+            <p class=" card-category d-inline">Time: {{vehicletimedisplay}} &nbsp;&nbsp;Type: {{vehicletype}} &nbsp; &nbsp;color: {{vehicleColor}} </p>
            
           </div>
           <div class=" card-body ">
@@ -57,28 +40,42 @@
             <div class="text-center">
               <div class=" typography-line">
                 <blockquote>
-                  <h1 class="plate-current blockquote blockquote-info">GJ-15-GP2020</h1>
-                  <img src="assets/img/car.jfif" alt="" class="" style="height: auto;width:80%">
+                  <h1 class="plate-current blockquote blockquote-info">{{vehicleNumberplate}}</h1>
+                  
+                  <div id="wrappergallary">
+                    
+                    <div id="slider-wrap">
+                      <ul id="slider">
+                          <li *ngFor="let item of imagelength; let i = index">
+                            <img src="{{images[i]}}" alt="" class="">
+
+                          </li>
+                         
+                          
+                  
+                          
+                          
+                      </ul>
+                      
+                        <!--controls-->
+                      <div class="btns" id="next" (click)="changetimeright()"><i class="tim-icons icon-double-right" style="color:white"></i></div>
+                      <div class="btns" id="previous" (click)=" changetimeleft()"><i class="tim-icons icon-double-left" style="color:white"></i></div>
+                      <div id="counter"></div>
+                      
+                      <div id="pagination-wrap">
+                        <ul>
+                        </ul>
+                      </div>
+                      <!--controls-->  
+                              
+                  </div>
+
+                  </div>
                 </blockquote>
               </div>
             
             </div>
-            <div>
-              <div class=" typography-line" style="display: inline-block;">
-                <span>Vehicle Type </span>
-                <p class=" text-info">
-                  Car
-                </p>
-              </div>
-              &nbsp;&nbsp;
-              <div class=" typography-line" style="display: inline-block;">
-                <span>Vehicle color </span>
-                <p class=" text-info">
-                  black-red
-                </p>
-              </div>
-              
-            </div>
+            
             </div>
           </div>
         </div>
@@ -90,7 +87,7 @@
         <div class=" card card-tasks">
           <div class=" card-header">
             <h6 class=" title d-inline">Other Details</h6>
-            <p class=" card-category d-inline">GJ-15-GP2020</p>
+            <p class=" card-category d-inline">{{vehicleNumberplate}}</p>
           </div>
           <div class=" card-body">
             <div class=" table-full-width table-responsive scroll-width-none" >
@@ -112,7 +109,7 @@
               </div>
               <div class="col-lg-12 ">
                 <br>
-                <p>Date: 12.2.2020</p>
+                <p>Date:{{vehicledate}}</p>
                 
               </div>
             </div>

@@ -1,10 +1,10 @@
 {
   "name": "black-dashboard-angular",
   "version": "1.1.0",
-  "description": "Black Dasboard Angular, a Creative Tim Desgin. Coded by Creative Tim",
+  "description": "ANPR System",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxyconfig.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

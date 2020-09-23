@@ -1,10 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import Chart from 'chart.js';
+import { LivevehiclesService } from 'src/app/services/livevehicles.service'
+import { interval } from 'rxjs';
+import * as $ from 'jquery'
 
+const secondsCounter = interval(60000);
 @Component({
   selector: "app-dashboard",
   templateUrl: "dashboard.component.html"
 })
+
+
 export class DashboardComponent implements OnInit {
   public canvas : any;
   public ctx;
@@ -15,9 +21,278 @@ export class DashboardComponent implements OnInit {
   public clicked1: boolean = false;
   public clicked2: boolean = false;
 
-  constructor() {}
 
+  // display details
+  vehicleNumberplate:string
+  vehicledatetime:string
+  vehicletype:string
+  vehicleColor:string
+  vehicletimedisplay:string
+  vehicledate:string
+  vehicletime:string
+  imageposition:number
+  imagelength;
+  images=[];
+  times=[]
+  lengthogslider:number
+
+
+  // main list ARRAY
+  Result;
+  datetime=[]
+  Vehicle=[]
+  Color=[]
+  Numberplate=[]
+  Object_id=[]
+  State_Union_Territory=[]
+  City=[]
+  Flag=[]
+  
+  constructor(private livelist:LivevehiclesService) {}
+
+
+  changetimeright(){
+    this.imageposition++;
+    if(this.imageposition<this.times.length)
+    {this.vehicletimedisplay=this.times[this.imageposition]
+   
+      }
+    else{
+    this.imageposition=0;
+    this.vehicletimedisplay=this.times[this.imageposition]
+    
+    }
+  }
+  changetimeleft(){
+    this.imageposition--;
+
+    if(this.imageposition>0)
+    {this.vehicletimedisplay=this.times[this.imageposition]
+      
+    }
+    else{
+      
+    this.imageposition=this.times.length-1;
+  
+    this.vehicletimedisplay=this.times[this.imageposition]
+    
+    }
+  }
+
+
+  imageslider()
+  {
+    
+
+// image gallary portion 
+var pos = 0;
+//number of slides
+var totalSlides = this.lengthogslider;
+//get the slide width
+var sliderWidth = $('#slider-wrap').width();
+
+
+$(document).ready(function(){
+	
+	
+	/*****************
+	 BUILD THE SLIDER
+	*****************/
+	//set width to be 'x' times the number of slides
+	$('#slider-wrap ul#slider').width(sliderWidth*totalSlides);
+	
+    //next slide 	
+	$('#next').click(function(){
+		slideRight();
+	});
+	
+	//previous slide
+	$('#previous').click(function(){
+		slideLeft();
+	});
+	
+	
+	
+	/*************************
+	 //*> OPTIONAL SETTINGS
+	************************/
+	//automatic slider
+	// var autoSlider = setInterval(slideRight, 8000);
+	
+	//for each slide 
+	$.each($('#slider-wrap ul li'), function() { 
+	   //set its color
+	   var c = $(this).attr("data-color");
+	   $(this).css("background",c);
+	   
+	   //create a pagination
+	   var li = document.createElement('li');
+	   $('#pagination-wrap ul').append(li);	   
+	});
+	
+	//counter
+	countSlides();
+	
+	//pagination
+	pagination();
+	
+	//hide/show controls/btns when hover
+	//pause automatic slide when hover
+	$('#slider-wrap').hover(
+	  function(){ $(this).addClass('active');  }, 
+	  function(){ $(this).removeClass('active');}
+	);
+	
+	
+
+});//DOCUMENT READY
+	
+
+
+/***********
+ SLIDE LEFT
+************/
+function slideLeft(){
+	pos--;
+	if(pos==-1){ pos = totalSlides-1; }
+	$('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 	
+	
+	//*> optional
+	countSlides();
+	pagination();
+}
+
+
+/************
+ SLIDE RIGHT
+*************/
+function slideRight(){
+	pos++;
+	if(pos==totalSlides){ pos = 0; }
+	$('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 
+	
+	//*> optional 
+	countSlides();
+	pagination();
+}
+
+
+
+	
+/************************
+ //*> OPTIONAL SETTINGS
+************************/
+function countSlides(){
+	$('#counter').html(pos+1 + ' / ' + totalSlides);
+}
+
+function pagination(){
+	$('#pagination-wrap ul li').removeClass('active');
+	$('#pagination-wrap ul li:eq('+pos+')').addClass('active');
+}
+		
+	
+
+
+// image gallary over
+  }
+  
+  displaydeatils(plate)
+  {
+
+    this.livelist.get_livevehicle_(
+      plate,
+      "null",
+      "null"
+    ).subscribe(
+      data => {
+        this.images=[];
+        this.times=[]
+
+        this.vehicleNumberplate=data["result"][0]["general"][0]["Numberplate"]
+        this.vehicledatetime=data["result"][0]["general"][0]["datetime"]
+        this.vehicletype=data["result"][0]["general"][0]["Vehicle"]
+        this.vehicleColor=data["result"][0]["general"][0]["Color"]
+
+        var arrayoftimedate=this.vehicledatetime.split(',')
+        
+        this.vehicledate=arrayoftimedate[0]
+        this.vehicletime=arrayoftimedate[1]
+        this.imagelength=data["result"][0]["images"]
+        // data:image/jpeg;base64,
+        this.lengthogslider=this.imagelength.length;
+        this.imageposition=this.imagelength.length
+
+        for(let i=0;i<this.imagelength.length;i++){
+
+           this.images[i]="data:image/jpg;base64,"+this.imagelength[i]["img"]
+           this.times[i]=data["result"][0]["details"][i]["time"]
+          
+        }
+      this.vehicletimedisplay=this.times[0]      
+
+        
+        this.imageslider()
+       
+       
+      },
+      err => {
+        console.log(err)
+      },
+      () => {
+      }
+
+    )
+
+    
+  }
+  livedetails(){
+    this.livelist.get_livevehicle_list().subscribe(
+      data => {
+
+        this.Result=data["result"]
+        
+
+        for(let i=0;i<this.Result.length;i++){
+
+          this.datetime[i]=data["result"][i]["general"][0]["datetime"]
+          this.Vehicle[i]=data["result"][i]["general"][0]["Vehicle"]
+          this.Color[i]=data["result"][i]["general"][0]["Color"]
+          this.Numberplate[i]=data["result"][i]["general"][0]["Numberplate"]
+          this.Object_id[i]=data["result"][i]["general"][0]["Object_id"]
+          this.State_Union_Territory[i]=data["result"][i]["general"][0]["State/Union-Territory"]
+          this.City[i]=data["result"][i]["general"][0]["City"]
+          this.Flag[i]=data["result"][i]["general"][0]["Flag"]
+        }
+        
+        this.displaydeatils( this.Numberplate[0]);
+        
+      },
+      err => {
+        console.log(err)
+      },
+      () => {
+      }
+
+    )
+
+    
+
+  }
+  
   ngOnInit() {
+    secondsCounter.subscribe(n =>
+      this.livedetails()
+ 
+      );
+
+      this.livedetails()
+ 
+      
+
+
+
+
     var gradientChartOptionsConfigurationWithTooltipBlue: any = {
       maintainAspectRatio: false,
       legend: {
@@ -467,4 +742,5 @@ export class DashboardComponent implements OnInit {
     this.myChartData.data.datasets[0].data = this.data;
     this.myChartData.update();
   }
+  
 }

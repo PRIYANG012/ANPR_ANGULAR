@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router'
 
-
+import { LoginService } from 'src/app/services/login.service'
 import { FormGroup, FormControl, Validators, FormBuilder,AbstractControl} from '@angular/forms';
 @Component({
   selector: 'app-auth',
@@ -23,6 +23,7 @@ export class AuthComponent implements OnInit {
     private route: ActivatedRoute,
   private router: Router,
   private fb: FormBuilder,
+  private logins: LoginService
    ) { }
 
   ngOnInit(): void {
@@ -49,6 +50,27 @@ export class AuthComponent implements OnInit {
 
     if(this.FORMLOGIN.valid){
       console.log(this.FORMLOGIN);
+      this.logins.Login( 
+        this.FORMLOGIN.value.email,
+        this.FORMLOGIN.value.password
+
+        ).subscribe(data =>{
+
+        localStorage.setItem('currentToken',data["token"]);
+        localStorage.setItem('authIn', "true");
+        this.router.navigate(['/dashboard'],{relativeTo :this.route})
+         
+     },
+     err => {
+       console.log(err['status'])
+       if(err['status'] == '400'){
+       }
+       else if(err['status'] == '500'){
+       }
+     }
+     
+     )
+    
       if( this.FORMLOGIN.value.remember==true || this.FORMLOGIN.value.remember=="True")
       {
         localStorage.setItem('Rememberme',this.FORMLOGIN.value.email );
@@ -58,10 +80,7 @@ export class AuthComponent implements OnInit {
         localStorage.setItem('Rememberme',null);
         localStorage.removeItem('Rememberme');
       }
-      localStorage.setItem('authIn', "true");
      
-
-      this.router.navigate(['/dashboard'],{relativeTo :this.route})
      
     }
     else{
