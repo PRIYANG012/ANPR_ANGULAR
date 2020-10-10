@@ -4,6 +4,7 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { exportComponent } from "../../pages/export/export.component";
+import { ChartsModule } from 'ng2-charts';
 
 import { AdminLayoutRoutes } from "./admin-layout.routing";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
@@ -20,6 +21,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    ChartsModule,
 
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,

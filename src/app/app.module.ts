@@ -14,6 +14,7 @@ import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.compon
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
@@ -25,6 +26,7 @@ import { AuthComponent } from './auth/auth.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ChartsModule,
     ComponentsModule,
     NgbModule,
     RouterModule.forRoot([

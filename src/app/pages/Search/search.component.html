@@ -74,7 +74,7 @@
             <div class=" card-header">
               
               <h6 class=" title d-inline">vehicle Details</h6>
-              <p class=" card-category d-inline"> &nbsp;&nbsp;Type: {{vehicletype[0]}} &nbsp; &nbsp;color: gray </p>
+              <p class=" card-category d-inline"> &nbsp;&nbsp;Type: {{vehicletype[0]}} &nbsp; &nbsp;color: {{vehiclecolordisplay}}</p>
              
             </div>
             <div class=" card-body ">
@@ -86,7 +86,7 @@
                     
                     <div id="wrappergallary">
                       
-                      <div id="slider-wrap">
+                      <div id="slider-wrap" style="width: 99%;">
                         <ul id="slider">
                           <li *ngFor="let item of images; let i = index">
                             <img src="{{vehicleimagesdisplay}}" alt="" class="">

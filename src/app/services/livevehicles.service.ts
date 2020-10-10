@@ -29,4 +29,27 @@ export class LivevehiclesService {
     }
     return this.http.post("/api/AddVehicle",requestbody)
   }
+
+ Filtering(Vehicle,Color,fromepoc,toepoc){
+   console.log(Vehicle,Color,fromepoc,toepoc)
+    var requestbody={
+      "Vehicle":Vehicle,
+      "Color":Color,
+      "fromepoc":fromepoc,
+      "toepoc":toepoc
+     
+    }
+    return this.http.post("/api/filter",requestbody)
+  }
+
+  
+ counting_vehicles(fromepoc,toepoc){
+  console.log(fromepoc,toepoc)
+   var requestbody={
+     "fromepoc":fromepoc,
+     "toepoc":toepoc
+    
+   }
+   return this.http.post("/api/getVehiclecount",requestbody)
+ }
 }

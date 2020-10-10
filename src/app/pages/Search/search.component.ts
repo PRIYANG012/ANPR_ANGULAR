@@ -294,7 +294,7 @@ function pagination(){
           {
           this.vehicledatetime[f]=data["result"][i]["general"][0]["datetime"]
           this.vehicleNumberplate[f]=data["result"][i]["general"][0]["Numberplate"]
-          this.vehiclecolor[f]=data["result"][i]["general"][0]["color"]
+          this.vehiclecolor[f]=data["result"][i]["general"][0]["Color"]
           this.vehicletype[f]=data["result"][i]["general"][0]["Vehicle"]
           this.vehiclelocation[f]=data["result"][i]["general"][0]["State/Union-Territory"]
           this.vehiclecity[f]=data["result"][i]["general"][0]["City"]

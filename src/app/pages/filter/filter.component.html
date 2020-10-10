@@ -10,19 +10,21 @@
       <div class=" card">
 
         <div class=" card-body">
-          <form>
+          <form [formGroup]="FORMFILTER" (ngSubmit)="onSubmit()">
             <div class=" row">
               <div class=" col-md-2 pr-md-1">
                 <div class=" form-group">
                   <label>Vehicle Color</label>
-                  <input class=" form-control" placeholder="Color.." type="text" />
+                  <input class=" form-control" placeholder="Color.." formControlName="Color" name="Color"  type="text"
+                  [ngClass]="{ 'is-invalid': submitted && f.Color.errors }" />
+                  
                 </div>
               </div>
-
+ 
               <div class=" col-md-3 pr-md-1">
                 <div class=" form-group">
                   <label>starting Date</label>
-                  <input class=" form-control" value="Any" placeholder="Color.." type="datetime-local" />
+                  <input class=" form-control" value="Any" formControlName="fromdate" name="fromdate"  type="datetime-local" />
                 </div>
               </div>
 
@@ -30,7 +32,7 @@
               <div class=" col-md-3 pr-md-1">
                 <div class=" form-group">
                   <label>Ending Date</label>
-                  <input class=" form-control" value="Any" placeholder="Color.." type="datetime-local" />
+                  <input class=" form-control" value="Any" formControlName="todate" name="todate" type="datetime-local" />
                 </div>
               </div>
 
@@ -38,11 +40,11 @@
                 <div class=" form-group">
                   <label>Vehicle Type</label>
 
-                  <select class="form-control" id="exampleSelect1">
-                    <option style="color:black">ALL</option>
-                    <option style="color:black">Car</option>
-                    <option style="color:black">Bike</option>
-                    <option style="color:black">Bus</option>
+                  <select class="form-control" id="exampleSelect1" formControlName="Typeofvehicle" name="Typeofvehicle">
+                    <option style="color:black" selected>ALL</option>
+                    <option style="color:black">car</option>
+                    <option style="color:black">bike</option>
+                    <option style="color:black">bus</option>
 
                   </select>
                 </div>
@@ -65,7 +67,7 @@
 
 
     <!-- table -->
-    <div class=" col-md-12">
+    <div class=" col-md-12" *ngIf="visible">
       <div class=" card">
         <div class=" card-header">
           <h4 class=" card-title">Details</h4>
@@ -84,6 +86,9 @@
                   <th>
                     <h4>Vehicle Color</h4>
                   </th>
+                  <th>
+                    <h4>Location</h4>
+                  </th>
                   <th class=" text-center">
                     <h4>Date/Time</h4>
                   </th>
@@ -93,70 +98,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>GJ-15-jg2020</td>
-                  <td>Car</td>
-                  <td>blue-black</td>
-                  <td class=" text-center">12/08/2020 12:07:62</td>
-                  <td><button class="btn btn-info" onclick="document.getElementById('id01').style.display='block'">view</button></td>
+                <tr *ngFor="let item of Result; let i = index">
+                  <td>{{Numberplate[i]}}</td>
+                  <td>{{ Vehicle[i]}}</td>
+                  <td>{{Color[i]}}</td>
+                  <td>{{City[i]}},{{State_Union_Territory[i]}}</td>
+                  <td class=" text-center">{{ datetime[i]}}</td>
+                  <td><button class="btn btn-info" (click)="changestate(Numberplate[i])" onclick="document.getElementById('id01').style.display='block'">view</button></td>
                 </tr>
-                <tr>
-                  <td>GJ-15-jg2020</td>
-                  <td>Car</td>
-                  <td>blue-black</td>
-                  <td class=" text-center">12/08/2020 12:07:62</td>
-                  <td><button class="btn btn-info" onclick="document.getElementById('id01').style.display='block'">view</button></td>
-
-                </tr>
-                <tr>
-                  <td>GJ-15-jg2020</td>
-                  <td>Car</td>
-                  <td>blue-black</td>
-                  <td class=" text-center">12/08/2020 12:07:62</td>
-                  <td><button class="btn btn-info" onclick="document.getElementById('id01').style.display='block'">view</button></td>
-
-                </tr>
-                <tr>
-                  <td>GJ-15-jg2020</td>
-                  <td>Car</td>
-                  <td>blue-black</td>
-                  <td class=" text-center">12/08/2020 12:07:62</td>
-                  <td><button class="btn btn-info" onclick="document.getElementById('id01').style.display='block'">view</button></td>
-
-                </tr>
-                <tr>
-                  <td>GJ-15-jg2020</td>
-                  <td>Car</td>
-                  <td>blue-black</td>
-                  <td class=" text-center">12/08/2020 12:07:62</td>
-                  <td><button class="btn btn-info" onclick="document.getElementById('id01').style.display='block'">view</button></td>
-
-                </tr>
-                <tr>
-                  <td>GJ-15-jg2020</td>
-                  <td>Car</td>
-                  <td>blue-black</td>
-                  <td class=" text-center">12/08/2020 12:07:62</td>
-                  <td><button class="btn btn-info" onclick="document.getElementById('id01').style.display='block'">view</button></td>
-
-                </tr>
-                <tr>
-                  <td>GJ-15-jg2020</td>
-                  <td>Car</td>
-                  <td>blue-black</td>
-                  <td class=" text-center">12/08/2020 12:07:62</td>
-                  <td><button class="btn btn-info" onclick="document.getElementById('id01').style.display='block'">view</button></td>
-
-                </tr>
-                <tr>
-                  <td>GJ-15-jg2020</td>
-                  <td>Car</td>
-                  <td>blue-black</td>
-                  <td class=" text-center">12/08/2020 12:07:62</td>
-                  <td><button class="btn btn-info"
-                      onclick="document.getElementById('id01').style.display='block'">view</button></td>
-
-                </tr>
+                
               </tbody>
             </table>
           </div>
@@ -183,50 +133,62 @@
                 <br>
               <div class="row">
                 <!--  -->
-                <div class=" col-lg-6 col-md-12">
+                <div class=" col-lg-7 col-md-12">
                   <div class=" card card-tasks">
                     <div class=" card-header">
                       <h6 class=" title d-inline">vehicle Details</h6>
-                      <p class=" card-category d-inline">Time: 12:00 AM</p>
+                      <p class=" card-category d-inline"> &nbsp;&nbsp;Type: {{vehicletype[0]}} &nbsp; &nbsp;color: {{vehiclecolordisplay}}&nbsp; &nbsp; Time: {{vehicletimedisplay}} </p>
+
                      
                     </div>
                     <div class=" card-body ">
                       <div class="text-center">
                         <div class=" typography-line">
                           <blockquote>
-                            <h1 class="plate-current blockquote blockquote-info">GJ-15-GP2020</h1>
-                            <img src="assets/img/car2.jfif" alt="" class="" style="height: auto;width:80%">
+                            <h1 class="plate-current blockquote blockquote-info">{{vehicleNumberplatedisplay}}</h1>
+                            <div id="wrappergallary">
+                      
+                              <div id="slider-wrap">
+                                <ul id="slider">
+                                  <li *ngFor="let item of images; let i = index">
+                                    <img src="{{vehicleimagesdisplay}}" alt="" class="">
+        
+                                  </li>
+                                    
+                                    
+                                </ul>
+                                
+                                  <!--controls-->
+                                <div class="btns"  style="margin-right:-32px" id="next" (click)="changetimeright()"><i class="tim-icons icon-double-right" style="color:white"></i></div>
+                                <div class="btns" id="previous" (click)=" changetimeleft()"><i class="tim-icons icon-double-left" style="color:white"></i></div>
+                                <div id="counter"></div>
+                                
+                                <div id="pagination-wrap">
+                                  <ul>
+                                  </ul>
+                                </div>
+                                <!--controls-->  
+                                        
+                            </div>
+          
+                            </div>
+          
                           </blockquote>
                         </div>
                       
                       </div>
-                      <div>
-                        <div class=" typography-line" style="display: inline-block;">
-                          <span>Vehicle Type </span>
-                          <p class=" text-info">
-                            Car
-                          </p>
-                        </div>
-                        &nbsp;&nbsp;
-                        <div class=" typography-line" style="display: inline-block;">
-                          <span>Vehicle color </span>
-                          <p class=" text-info">
-                            black-red
-                          </p>
-                        </div>
-                        
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
                 
                 <!--  -->
                 
-                <div class=" col-lg-6 col-md-12">
+                <div class=" col-lg-5 col-md-12">
                   <div class=" card card-tasks">
                     <div class=" card-header">
                       <h6 class=" title d-inline">Other Details</h6>
-                      <p class=" card-category d-inline">GJ-15-GP2020</p>
+                      <p class=" card-category d-inline">{{vehicleNumberplatedisplay}}</p>
                     </div>
                     <div class=" card-body">
                       <div class=" table-full-width table-responsive scroll-width-none" >
@@ -248,7 +210,7 @@
                         </div>
                         <div class="col-lg-12 ">
                           <br>
-                          <p>Date: 12.2.2020</p>
+                          <p>Date: {{vehicledatedisplay}}</p>
                           
                         </div>
                       </div>
